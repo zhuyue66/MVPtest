@@ -22,7 +22,7 @@ public class UserBiz implements IUserBiz {
                     e.printStackTrace();
                 }
                 //模拟登录成功
-                if(name.equals("zhuda") && password.equals("123")){
+                if(name.equals("123") && password.equals("123")){
                     User user = new User();
                     user.setName(name);
                     user.setPassword(password);

@@ -1,11 +1,17 @@
 package com.example.mvptest.presenter;
 
 import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.mvptest.bean.User;
 import com.example.mvptest.biz.IUserBiz;
 import com.example.mvptest.biz.UserBiz;
 import com.example.mvptest.biz.onLoginListener;
+import com.example.mvptest.util.MyApplication;
 import com.example.mvptest.view.IUserLoginView;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * @author zhuyue66
@@ -25,14 +31,23 @@ public class UserLoginPresenter {
 
     public void login() {
         userLoginView.showLoading();
-        userBiz.login(userLoginView.getUserName(), userLoginView.getPassword(), new onLoginListener() {
+        //对Login方法设置监听
+        userBiz.login(userLoginView.getUserName(), userLoginView.getPassword(),new MyListener());
+    }
+
+    public void clear() {
+        userLoginView.clearUserName();
+        userLoginView.clearPassword();
+    }
+
+    private class MyListener implements onLoginListener {
             @Override
             public void loginSuccess(final User user){
                 //需要在UI线程执行
                 mHandler.post(new Runnable(){
                     @Override
                     public void run(){
-                        userLoginView.toMainActivity(user);
+                        userLoginView.showSuccess(user);
                         userLoginView.hideLoading();
                     }
                 });
@@ -48,11 +63,6 @@ public class UserLoginPresenter {
                     }
                 });
             }
-        });
-    }
+        }
 
-    public void clear() {
-        userLoginView.clearUserName();
-        userLoginView.clearPassword();
-    }
 }

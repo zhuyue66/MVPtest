@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mvptest.bean.User;
+import com.example.mvptest.biz.onLoginListener;
 import com.example.mvptest.presenter.UserLoginPresenter;
 import com.example.mvptest.view.IUserLoginView;
 
@@ -35,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
     private void initViews() {
         mEtUsername = findViewById(R.id.UserName);
         mEtPassword = findViewById(R.id.UserPassword);
-
         mBtnClear = findViewById(R.id.clear);
         mBtnLogin = findViewById(R.id.login);
-
         mPbLoading = findViewById(R.id.progressBar);
 
-        mBtnLogin.setOnClickListener(new View.OnClickListener() {
+        mBtnLogin.setOnClickListener(new MyListener());
+        mBtnClear.setOnClickListener(new MyListener());
+        /*mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mUserLoginPresenter.login();
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
             public void onClick(View v) {
                 mUserLoginPresenter.clear();
             }
-        });
+        });*/
+
     }
 
     @Override
@@ -92,12 +94,23 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
     }
 
     @Override
-    public void toMainActivity(User user) {
-        Toast.makeText(this, user.getName() + " login success , to MainActivity", Toast.LENGTH_SHORT).show();
+    public void showSuccess(User user) {
+        Toast.makeText(this, user.getName() + " login success ", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showFailedError() {
         Toast.makeText(this, "login failed", Toast.LENGTH_SHORT).show();
+    }
+
+    class MyListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.login ){
+                mUserLoginPresenter.login();
+            } else if (v.getId() == R.id.clear) {
+                mUserLoginPresenter.clear();
+            }
+        }
     }
 }
