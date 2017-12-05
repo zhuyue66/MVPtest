@@ -1,17 +1,12 @@
 package com.example.mvptest.presenter;
 
 import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.example.mvptest.bean.User;
-import com.example.mvptest.biz.IUserBiz;
-import com.example.mvptest.biz.UserBiz;
-import com.example.mvptest.biz.onLoginListener;
-import com.example.mvptest.util.MyApplication;
+import com.example.mvptest.Model.UserBean;
+import com.example.mvptest.Model.IUserBiz;
+import com.example.mvptest.Model.UserBiz;
+import com.example.mvptest.Listener.onLoginListener;
 import com.example.mvptest.view.IUserLoginView;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * @author zhuyue66
@@ -20,19 +15,19 @@ import static android.content.ContentValues.TAG;
 
 public class UserLoginPresenter {
 
-    private IUserBiz userBiz;
-    private IUserLoginView userLoginView;
+    private IUserBiz userBiz;//业务逻辑实体类的引用
+    private IUserLoginView userLoginView;//view的引用
     private Handler mHandler = new Handler();
 
     public UserLoginPresenter(IUserLoginView userLoginView) {
         this.userLoginView = userLoginView;
-        this.userBiz = new UserBiz();
+        this.userBiz = new UserBiz();//业务实体类的实例
     }
 
     public void login() {
         userLoginView.showLoading();
         //对Login方法设置监听
-        userBiz.login(userLoginView.getUserName(), userLoginView.getPassword(),new MyListener());
+        userBiz.ModelLogin(userLoginView.getUserName(), userLoginView.getPassword(),new MyListener());
     }
 
     public void clear() {
@@ -42,12 +37,12 @@ public class UserLoginPresenter {
 
     private class MyListener implements onLoginListener {
             @Override
-            public void loginSuccess(final User user){
+            public void loginSuccess(final UserBean userBean){
                 //需要在UI线程执行
                 mHandler.post(new Runnable(){
                     @Override
                     public void run(){
-                        userLoginView.showSuccess(user);
+                        userLoginView.showSuccess(userBean);
                         userLoginView.hideLoading();
                     }
                 });

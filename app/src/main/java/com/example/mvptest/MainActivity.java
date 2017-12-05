@@ -8,8 +8,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.mvptest.bean.User;
-import com.example.mvptest.biz.onLoginListener;
+import com.example.mvptest.Model.UserBean;
 import com.example.mvptest.presenter.UserLoginPresenter;
 import com.example.mvptest.view.IUserLoginView;
 
@@ -23,13 +22,13 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
     private Button mBtnLogin, mBtnClear;
     private ProgressBar mPbLoading;
 
+    //建立View与Presenter之间的关系
     private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(MainActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initViews();
     }
 
@@ -42,19 +41,6 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
 
         mBtnLogin.setOnClickListener(new MyListener());
         mBtnClear.setOnClickListener(new MyListener());
-        /*mBtnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mUserLoginPresenter.login();
-            }
-        });
-
-        mBtnClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mUserLoginPresenter.clear();
-            }
-        });*/
 
     }
 
@@ -94,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
     }
 
     @Override
-    public void showSuccess(User user) {
-        Toast.makeText(this, user.getName() + " login success ", Toast.LENGTH_SHORT).show();
+    public void showSuccess(UserBean userBean) {
+        Toast.makeText(this, userBean.getName() + " login success ", Toast.LENGTH_SHORT).show();
     }
 
     @Override
