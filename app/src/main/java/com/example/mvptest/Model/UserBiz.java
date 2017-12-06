@@ -26,9 +26,9 @@ public class UserBiz implements IUserBiz {
                     UserBean userBean = new UserBean();//数据的存储
                     userBean.setName(name);
                     userBean.setPassword(password);
-                    loginListener.loginSuccess(userBean);
+                    loginListener.loginSuccess(userBean);//回调loginSuccess()方法
                 }else {
-                    loginListener.loginFailed();
+                    loginListener.loginFailed();//回调loginFailed()方法
                 }
             }
         }.start();
