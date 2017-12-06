@@ -1,4 +1,4 @@
-package com.example.mvptest.Model;
+package com.example.mvptest.bean;
 
 /**
  * @author zhuyue66

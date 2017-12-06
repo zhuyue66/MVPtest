@@ -1,6 +1,6 @@
 package com.example.mvptest.Listener;
 
-import com.example.mvptest.Model.UserBean;
+import com.example.mvptest.bean.UserBean;
 
 /**
  * @author zhuyue66

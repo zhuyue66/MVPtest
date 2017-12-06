@@ -1,6 +1,7 @@
 package com.example.mvptest.Model;
 
 import com.example.mvptest.Listener.onLoginListener;
+import com.example.mvptest.bean.UserBean;
 
 /**
  * @author zhuyue66

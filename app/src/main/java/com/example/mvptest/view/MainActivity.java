@@ -1,4 +1,4 @@
-package com.example.mvptest;
+package com.example.mvptest.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,14 +8,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.mvptest.Model.UserBean;
+import com.example.mvptest.bean.UserBean;
+import com.example.mvptest.R;
+import com.example.mvptest.contract.UserLoginContract;
 import com.example.mvptest.presenter.UserLoginPresenter;
-import com.example.mvptest.view.IUserLoginView;
 
 /**
  * The type Main activity.
  */
-public class MainActivity extends AppCompatActivity implements IUserLoginView {
+public class MainActivity extends AppCompatActivity implements UserLoginContract.IUserLoginView {
 
 
     private EditText mEtUsername, mEtPassword;
