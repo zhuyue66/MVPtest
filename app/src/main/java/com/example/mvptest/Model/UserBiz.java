@@ -2,6 +2,7 @@ package com.example.mvptest.Model;
 
 import com.example.mvptest.Listener.onLoginListener;
 import com.example.mvptest.bean.UserBean;
+import com.example.mvptest.contract.UserLoginContract;
 
 /**
  * @author zhuyue66
@@ -11,8 +12,14 @@ import com.example.mvptest.bean.UserBean;
 
 public class UserBiz implements IUserBiz {
 
+    private UserLoginContract.UserLoginPresenter userLoginPresenter;
+
+    public UserBiz(UserLoginContract.UserLoginPresenter userLoginPresenter) {
+        this.userLoginPresenter = userLoginPresenter;
+    }
+
     @Override
-    public void ModelLogin(final String name, final String password, final onLoginListener loginListener) {
+    public void ModelLogin(final String name, final String password) {
         //模拟子线程耗时操作
         new Thread(){
             @Override
@@ -27,9 +34,11 @@ public class UserBiz implements IUserBiz {
                     UserBean userBean = new UserBean();//数据的存储
                     userBean.setName(name);
                     userBean.setPassword(password);
-                    loginListener.loginSuccess(userBean);//回调loginSuccess()方法
+                    //loginListener.loginSuccess(userBean);//回调loginSuccess()方法
+                    userLoginPresenter.loginSuccess(userBean);
                 }else {
-                    loginListener.loginFailed();//回调loginFailed()方法
+                    // loginListener.loginFailed();//回调loginFailed()方法
+                    userLoginPresenter.loginFailed();
                 }
             }
         }.start();

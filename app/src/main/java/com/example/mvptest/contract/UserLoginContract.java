@@ -48,6 +48,10 @@ public interface UserLoginContract {
         //清除用户名和密码
         void clear();
 
+        void loginFailed();
+
+        void loginSuccess(final UserBean userBean);
+
     }
 
 }
