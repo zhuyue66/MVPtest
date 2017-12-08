@@ -28,39 +28,41 @@ public class UserLoginPresenter implements UserLoginContract.UserLoginPresenter 
     public void login() {
         userLoginView.showLoading();
         //对Login方法设置监听
-        userBiz.ModelLogin(userLoginView.getUserName(), userLoginView.getPassword(), new onLoginListener() {
-            //登录成功
-            @Override
-            public void loginSuccess(final UserBean userBean) {
-                //需要在UI线程执行
-                mHandler.post(new Runnable(){
-                    @Override
-                    public void run(){
-                        userLoginView.showSuccess(userBean);
-                        userLoginView.hideLoading();
-                    }
-                });
-            }
-
-            //登录失败
-            @Override
-            public void loginFailed() {
-                //需要在UI线程执行
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        userLoginView.showFailedError();
-                        userLoginView.hideLoading();
-                    }
-                });
-            }
-        });
+        userBiz.ModelLogin(userLoginView.getUserName(), userLoginView.getPassword(),new MyListener());
     }
 
     @Override
     public void clear() {
         userLoginView.clearUserName();
         userLoginView.clearPassword();
+    }
+
+    private class MyListener implements onLoginListener{
+        //登录成功
+        @Override
+        public void loginSuccess(final UserBean userBean) {
+            //需要在UI线程执行
+            mHandler.post(new Runnable(){
+                @Override
+                public void run(){
+                    userLoginView.showSuccess(userBean);
+                    userLoginView.hideLoading();
+                }
+            });
+        }
+
+        //登录失败
+        @Override
+        public void loginFailed() {
+            //需要在UI线程执行
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    userLoginView.showFailedError();
+                    userLoginView.hideLoading();
+                }
+            });
+        }
     }
 
 }

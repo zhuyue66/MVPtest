@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements UserLoginContract
     private ProgressBar mPbLoading;
 
     //建立View与Presenter之间的关系
-    private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(MainActivity.this);
+    private UserLoginContract.UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(MainActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
